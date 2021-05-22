@@ -9,4 +9,5 @@ add_subdirectory(narpc)
 add_subdirectory(disni)
 add_subdirectory(crail)
 add_subdirectory(iobench)
+add_subdirectory(test)
 
