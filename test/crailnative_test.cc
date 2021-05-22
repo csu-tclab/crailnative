@@ -52,11 +52,17 @@ int main(int argc, char* argv[]) {
 
         inputstream->Close();
 
-        printf("[INFO] begin write file [%s]\n", file_name);
+        printf("[INFO] begin write file [%s]\n", file_name.c_str());
         std::ofstream ofs(file_name);
         ofs << str_data;
         ofs.close();
-        printf("[INFO] end write file [%s]\n", file_name);
+        printf("[INFO] end write file [%s]\n", file_name.c_str());
+
+        printf("[INFO] begin calc file hash\n");
+        std::string command = "md5sum ";
+        command = command + file_name;
+        ::system(command.c_str());
+        printf("[INFO] end calc file hash\n");
     }
 
     return 0;
