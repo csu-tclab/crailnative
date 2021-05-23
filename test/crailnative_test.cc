@@ -34,7 +34,11 @@ int main(int argc, char* argv[]) {
     crailStore.reset(new CrailStore(addr, port));
 
     printf("<-[INFO] begin connect to crail\n");
-    crailStore->Initialize();
+    auto con_result = crailStore->Initialize();
+
+    if (con_result < 0) {
+        printf("[ERROR] connect to crail server failed!");
+    }
     printf("<-[INFO] connect to crail end\n");
 
     while(1) {
