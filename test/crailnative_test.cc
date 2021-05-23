@@ -3,15 +3,32 @@
 #include <memory>
 #include <fstream>
 
+void show_usage(void) {
+    printf("usage: \
+    crailnative_test [ip] [port] [key] \n \
+    [key] without '/' \n \
+     \
+    ");
+}
+
 int main(int argc, char* argv[]) {
     std::string addr;
     int port;
+    bool run_once = false;
 
-    std::cout << "enter addr:";
-    std::cin >> addr;
+    if (argc >= 3) {
+        addr = argv[1];
+        port = atoi(argv[2]);
 
-    std::cout << "enter port:";
-    std::cin >> port;
+        printf("read arg from argv: \n \
+         [IP]: %s -> [PORT]: %d\n", addr.c_str(), port);
+    } else {
+        std::cout << "enter addr:";
+        std::cin >> addr;
+
+        std::cout << "enter port:";
+        std::cin >> port;
+    }
 
     std::shared_ptr<CrailStore> crailStore;
     crailStore.reset(new CrailStore(addr, port));
@@ -25,9 +42,16 @@ int main(int argc, char* argv[]) {
         std::string file_name = "";
         string str_data = "";
         
-        std::cout << "enter key to download:";
-        std::cin >> key;
+        if (argc >= 4) {
+            key = argv[3];
+            run_once = true;
 
+            printf("read [KEY] from argv. will exit after finish write!\n");
+        } else {
+            std::cout << "enter key to download:";
+            std::cin >> key;
+        }
+        
         file_name = key;
         key = "/" + key;
 
@@ -63,6 +87,10 @@ int main(int argc, char* argv[]) {
         command = command + file_name;
         ::system(command.c_str());
         printf("[INFO] end calc file hash\n");
+
+        if (run_once == true) {
+            break;
+        }
     }
 
     return 0;
