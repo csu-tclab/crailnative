@@ -29,8 +29,8 @@
 
 #include "crail/client/common/serializable.h"
 #include "crail/client/storage/narpc/narpc_storage_request.h"
-#include "ioutils/byte_buffer.h"
-#include "narpc/rpc_client.h"
+#include "crail/client/ioutils/byte_buffer.h"
+#include "crail/client/narpc/rpc_client.h"
 
 class NarpcReadRequest : public NarpcStorageRequest {
 public:

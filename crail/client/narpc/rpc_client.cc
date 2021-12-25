@@ -21,7 +21,7 @@
  * limitations under the License.
  */
 
-#include "narpc/rpc_client.h"
+#include "crail/client/narpc/rpc_client.h"
 
 #include <arpa/inet.h>
 #include <errno.h>
@@ -35,7 +35,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include "narpc/network_utils.h"
+#include "crail/client/narpc/network_utils.h"
 
 using namespace std;
 

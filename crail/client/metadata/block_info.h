@@ -28,7 +28,7 @@
 
 #include "crail/client/common/serializable.h"
 #include "crail/client/metadata/datanode_info.h"
-#include "ioutils/byte_buffer.h"
+#include "crail/client/ioutils/byte_buffer.h"
 
 using namespace std;
 

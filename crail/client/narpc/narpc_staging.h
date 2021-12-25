@@ -21,53 +21,42 @@
  * limitations under the License.
  */
 
-#ifndef RPC_CLIENT_H
-#define RPC_CLIENT_H
+#ifndef NARPC_STAGING_H
+#define NARPC_STAGING_H
 
-#include <atomic>
+#include <fcntl.h>
 #include <memory>
-#include <netdb.h>
-#include <netinet/in.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <string>
-#include <sys/socket.h>
+#include <sys/stat.h>
 #include <sys/types.h>
-#include <unistd.h>
-#include <unordered_map>
+#include <sys/uio.h>
+#include <vector>
 
-#include "narpc/narpc_staging.h"
-#include "narpc/rpc_message.h"
+#include "crail/client/ioutils/byte_buffer.h"
+#include "crail/client/narpc/rpc_message.h"
 
-using namespace std;
-
-class RpcClient {
+class NarpcStaging {
 public:
-  RpcClient(int address, int port, bool nodelay);
-  virtual ~RpcClient();
+  NarpcStaging();
+  virtual ~NarpcStaging();
 
-  int Connect();
-  void Close();
+  void Clear();
 
-  int IssueRequest(shared_ptr<RpcMessage> request,
-                   shared_ptr<RpcMessage> response);
-  int PollResponse();
+  void AddHeader(int size, unsigned long long ticket);
+  void SendMessage(int socket, shared_ptr<RpcMessage> message);
+
+  int FetchHeader(int socket, int &size, unsigned long long &ticket);
+  int FetchMessage(int socket, shared_ptr<RpcMessage> message);
 
 private:
-  static const int kNarpcHeader = 12;
-  static const int kRpcHeader = 4;
-  static const int kMaxTicket = 8;
+  ByteBuffer metadata_;
+  vector<shared_ptr<ByteBuffer>> data_;
+  int bytes_;
 
-  int address_;
-  int port_;
-  bool nodelay_;
-  int socket_;
-  bool isConnected_;
-
-  NarpcStaging staging_;
-  atomic<unsigned long long> counter_;
-  shared_ptr<RpcMessage> responseMap_[kMaxTicket];
+  int Flush(int socket);
+  int SendBytes(int socket, unsigned char *buf, int length);
+  int SendBytesV(int socket, struct iovec *iov, int vec_count);
+  int ReceiveBytes(int socket, int size, unsigned char *buf);
 };
 
-#endif /* RPC_CLIENT_H */
+#endif /* NARPC_STAGING_H */

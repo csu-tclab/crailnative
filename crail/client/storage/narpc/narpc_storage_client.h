@@ -25,7 +25,7 @@
 #define NARPC_STORAGE_CLIENT_H
 
 #include "crail/client/storage/storage_client.h"
-#include "narpc/rpc_client.h"
+#include "crail/client/narpc/rpc_client.h"
 
 class NarpcStorageClient : public StorageClient {
 public:

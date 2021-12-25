@@ -24,7 +24,7 @@
 #ifndef SERIALIZABLE_H
 #define SERIALIZABLE_H
 
-#include "ioutils/byte_buffer.h"
+#include "crail/client/ioutils/byte_buffer.h"
 
 using namespace crail;
 

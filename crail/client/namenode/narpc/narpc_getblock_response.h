@@ -26,7 +26,7 @@
 
 #include "crail/client/common/future.h"
 #include "crail/client/namenode/getblock_response.h"
-#include "narpc/rpc_client.h"
+#include "crail/client/narpc/rpc_client.h"
 
 class NarpcGetBlockResponse : public GetblockResponse,
                               public AsyncTask<GetblockResponse> {

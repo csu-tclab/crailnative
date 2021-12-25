@@ -25,8 +25,8 @@
 #define NAMENODE_REQUEST_H
 
 #include "crail/client/common/serializable.h"
-#include "ioutils/byte_buffer.h"
-#include "narpc/rpc_message.h"
+#include "crail/client/ioutils/byte_buffer.h"
+#include "crail/client/narpc/rpc_message.h"
 
 using namespace crail;
 

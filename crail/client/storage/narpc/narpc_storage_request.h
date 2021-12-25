@@ -24,8 +24,8 @@
 #ifndef NARPC_STORAGE_REQUEST_H
 #define NARPC_STORAGE_REQUEST_H
 
-#include "ioutils/byte_buffer.h"
-#include "narpc/rpc_message.h"
+#include "crail/client/ioutils/byte_buffer.h"
+#include "crail/client/narpc/rpc_message.h"
 
 using namespace crail;
 

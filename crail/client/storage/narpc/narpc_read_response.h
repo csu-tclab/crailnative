@@ -28,8 +28,8 @@
 
 #include "crail/client//storage/narpc/narpc_storage_response.h"
 #include "crail/client/common/future.h"
-#include "narpc/rpc_client.h"
-#include "narpc/rpc_message.h"
+#include "crail/client/narpc/rpc_client.h"
+#include "crail/client/narpc/rpc_message.h"
 
 using namespace std;
 

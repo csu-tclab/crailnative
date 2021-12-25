@@ -28,7 +28,7 @@
 #include <string>
 
 #include "crail/client/common/serializable.h"
-#include "ioutils/byte_buffer.h"
+#include "crail/client/ioutils/byte_buffer.h"
 
 using namespace std;
 

@@ -39,11 +39,14 @@ add_library (crail STATIC
 	client/utils/micro_clock.cc
 	client/utils/crail_hash.cc
 	client/utils/crail_networking.cc
+	client/ioutils/byte_buffer.cc
+	client/narpc/narpc_staging.cc
+	client/narpc/network_utils.cc
+	client/narpc/rpc_client.cc
 )
 
-target_link_libraries (crail LINK_PUBLIC narpc ioutils)
-
 install(TARGETS crail DESTINATION /usr/local/lib)
+
 install (FILES 
 	client/crail_store.h
 	client/crail_node.h

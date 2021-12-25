@@ -25,7 +25,7 @@
 #define STORAGE_CLIENT_H
 
 #include "crail/client/common/future.h"
-#include "ioutils/byte_buffer.h"
+#include "crail/client/ioutils/byte_buffer.h"
 
 using namespace crail;
 using namespace std;
