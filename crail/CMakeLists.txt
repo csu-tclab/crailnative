@@ -82,3 +82,7 @@ install (FILES
 install (FILES
 	client/utils/crail_networking.h
 	DESTINATION /usr/local/include/crail/client/utils)
+	
+install (FILES
+	libcrail.pc
+	DESTINATION /usr/local/lib/pkgconfig/)
