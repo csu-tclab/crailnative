@@ -1,10 +1,11 @@
-set(CMAKE_CXX_FLAGS "-fPIC -O3 -g -D_GLIBCXX_USE_CXX11_ABI=0")
+set(CMAKE_CXX_FLAGS "-O0 -g -D_GLIBCXX_USE_CXX11_ABI=0")
+
 add_library (ioutils STATIC
 	byte_buffer.cc
-	)
+)
 
-#install(TARGETS narpc DESTINATION /lib)
+#install(TARGETS narpc DESTINATION /usr/local/lib)
 install (FILES 
 	byte_buffer.h
-	DESTINATION /include/ioutils)
+	DESTINATION /usr/local/include/ioutils)
 
