@@ -85,15 +85,9 @@ install (FILES
 install (FILES
 	client/utils/crail_networking.h
 	DESTINATION /usr/local/include/crail/client/utils)
-
-install (FILES
-	client/utils/crail_networking.h
-	DESTINATION /usr/local/include/crail/client/utils)
-
 install (FILES
 	client/ioutils/byte_buffer.h
 	DESTINATION /usr/local/include/crail/client/ioutils)
-	
 install (FILES
 	client/narpc/narpc_staging.h
 	client/narpc/network_utils.h
