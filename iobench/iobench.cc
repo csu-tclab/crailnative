@@ -33,6 +33,7 @@
 
 #include "crail/client/crail_file.h"
 #include "crail/client/utils/micro_clock.h"
+#include "crail/client/utils/log.h"
 
 using namespace std;
 
@@ -366,6 +367,8 @@ int Iobench::GetKey(char data[], int len, string src_file) {
 }
 
 int main(int argc, char *argv[]) {
+  log_debug("main begin");
+
   Settings settings;
   setDefaults(settings);
 
@@ -424,6 +427,7 @@ int main(int argc, char *argv[]) {
     res = iobench.Read(settings.filename, settings.size, settings.loop);
   } else if (settings.operation == Operation::PutKey) {
     char data[settings.size];
+    memset(data, 0xff, sizeof(data)); // fill with 0xff
     iobench.PutKey(data, settings.size, settings.filename, settings.enumerable);
   } else if (settings.operation == Operation::GetKey) {
     char data[settings.size];
@@ -461,5 +465,7 @@ int main(int argc, char *argv[]) {
   } else if (settings.operation == Operation::Cat) {
     res = iobench.Cat(settings.filename);
   }
+
+  log_debug("main end");
   return res;
 }

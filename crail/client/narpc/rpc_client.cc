@@ -36,6 +36,7 @@
 #include <unistd.h>
 
 #include "crail/client/narpc/network_utils.h"
+#include "crail/client/utils/log.h"
 
 using namespace std;
 
@@ -71,7 +72,7 @@ int RpcClient::Connect() {
     perror(message.c_str());
     return -1;
   } else {
-    //cout << "NetworkStream::Connect connected to " << addressport << endl;
+    log_debug("NetworkStream::Connect connected to [%s]", addressport.c_str());
   }
   isConnected_ = true;
   return 0;
@@ -95,8 +96,7 @@ int RpcClient::IssueRequest(shared_ptr<RpcMessage> request,
   // stream_.Clear();
   staging_.Clear();
 
-  //cout << "RpcClient::IssueRequest " << request->ToString() << " (size "
-  //     << request->Size() << ")" << endl;
+  log_debug("RpcClient::IssueRequest [%s] size -> [%d]", request->ToString().c_str(), request->Size());
 
   // serialize header
   // stream_.PutInt(request->Size());
@@ -127,15 +127,14 @@ int RpcClient::PollResponse() {
   unsigned long long ticket = 0;
   staging_.FetchHeader(socket_, size, ticket);
 
-  //cout << "receiving size " << size << ", ticket " << ticket << endl;
+  log_debug("receiving size -> [%d], ticket -> [%lu]", size, ticket);
   shared_ptr<RpcMessage> response = responseMap_[ticket];
 
   // stream_.Read(socket_, msg_size);
   // msg_response->Update(stream_);
   staging_.Clear();
   staging_.FetchMessage(socket_, response);
-  //cout << "RpcMessage::PollResponse " << response << " (size "
-  //     << response->Size() << ")" << endl;
+  log_debug("RpcMessage::PollResponse %s size -> [%d]", response->ToString().c_str(), response->Size());
 
   return 0;
 }
