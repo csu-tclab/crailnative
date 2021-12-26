@@ -2,6 +2,8 @@
 #include "crail/client/utils/log.h"
 #include "crail/client/crail_file.h"
 
+using namespace std;
+
 CrailClient::CrailClient(std::string ip, uint16_t port)  : _crailStore(nullptr), _addr(""), _port(0), _connected(false) {
     // network info
     this->_addr = ip;
@@ -53,7 +55,7 @@ int CrailClient::Disconnect() {
 
 int CrailClient::Set(std::string key, const std::string &value) {
     int ret = 0;
-    bool enumerable = false;
+    bool enumerable = true;
 
     // we need to handle duplicate key manually, WTF
     auto lookup_ret = this->_crailStore->Lookup<CrailFile>(key).get();
