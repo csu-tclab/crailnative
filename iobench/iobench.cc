@@ -426,9 +426,15 @@ int main(int argc, char *argv[]) {
   } else if (settings.operation == Operation::Read) {
     res = iobench.Read(settings.filename, settings.size, settings.loop);
   } else if (settings.operation == Operation::PutKey) {
-    char data[settings.size];
+    log_info("settings.size -> [%lu]", settings.size);
+    char *data = new char[settings.size];
     memset(data, 0xff, sizeof(data)); // fill with 0xff
+
+    log_info("begin putKey");
     iobench.PutKey(data, settings.size, settings.filename, settings.enumerable);
+    log_info("end putKey");
+
+    delete[] data;
   } else if (settings.operation == Operation::GetKey) {
     char data[settings.size];
     iobench.GetKey(data, settings.size, settings.filename);
