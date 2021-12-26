@@ -428,7 +428,7 @@ int main(int argc, char *argv[]) {
   } else if (settings.operation == Operation::PutKey) {
     log_info("settings.size -> [%lu]", settings.size);
     char *data = new char[settings.size];
-    memset(data, 0xff, sizeof(data)); // fill with 0xff
+    memset(data, 0xff, sizeof(char) * settings.size); // fill with 0xff
 
     log_info("begin putKey");
     iobench.PutKey(data, settings.size, settings.filename, settings.enumerable);
