@@ -1,4 +1,4 @@
-set(CMAKE_CXX_FLAGS "-O0 -g -D_GLIBCXX_USE_CXX11_ABI=0")
+set(CMAKE_CXX_FLAGS "-O0 -g -D_GLIBCXX_USE_CXX11_ABI=1")
 
 add_library (disni STATIC
 	rdma_endpoint.cc

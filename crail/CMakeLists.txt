@@ -1,4 +1,4 @@
-set(CMAKE_CXX_FLAGS "-O0 -g -D_GLIBCXX_USE_CXX11_ABI=0")
+set(CMAKE_CXX_FLAGS "-O0 -g -D_GLIBCXX_USE_CXX11_ABI=1")
 
 add_library (crail STATIC 
 	client/crail_store.cc
@@ -43,6 +43,8 @@ add_library (crail STATIC
 	client/narpc/narpc_staging.cc
 	client/narpc/network_utils.cc
 	client/narpc/rpc_client.cc
+	client/utils/log.cc
+	client/api/crail_client.cc
 )
 
 install(TARGETS crail DESTINATION /usr/local/lib)
@@ -94,6 +96,9 @@ install (FILES
 	client/narpc/rpc_client.h
 	client/narpc/rpc_message.h
 	DESTINATION /usr/local/include/crail/client/narpc)
+install (FILES
+	client/api/crail_client.h
+	DESTINATION /usr/local/include/crail/client/api)
 
 install (FILES
 	libcrail.pc
