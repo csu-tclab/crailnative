@@ -99,6 +99,9 @@ install (FILES
 install (FILES
 	client/api/crail_client.h
 	DESTINATION /usr/local/include/crail/client/api)
+install (FILES
+	client/utils/log.h
+	DESTINATION /usr/local/include/crail/client/utils)
 
 install (FILES
 	libcrail.pc
