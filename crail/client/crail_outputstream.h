@@ -29,6 +29,7 @@
 #include "crail/client/namenode/namenode_client.h"
 #include "crail/client/storage/storage_cache.h"
 #include "crail/client/ioutils/byte_buffer.h"
+#include "crail/client/utils/log.h"
 
 using namespace crail;
 using namespace std;

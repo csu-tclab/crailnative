@@ -65,8 +65,11 @@ Future<int> CrailOutputstream::Write(shared_ptr<ByteBuffer> buf) {
     buf->set_limit(buf->position() + block_remaining);
   }
 
+  log_debug("CrailOutputstream::Write block_offset -> [%d]", block_offset);
+  log_debug("CrailOutputstream::Write position_ -> [%llu]", position_);
   BlockInfo &block_info = block_cache_->GetBlock(position_);
   if (!block_info.valid()) {
+    log_debug("CrailOutputstream::Write cache mismatch occured!");
     GetblockResponse get_block_res =
         namenode_client_
             ->GetBlock(file_info_.fd(), file_info_.token(), position_,
