@@ -32,7 +32,7 @@ BlockCache::BlockCache(int fd) : fd_(fd) {}
 BlockCache::~BlockCache() {}
 
 int BlockCache::PutBlock(long long offset, BlockInfo block) {
-  log_debug("BlockCache::PutBlock offset -> [%llu]", offset);
+  // log_debug("BlockCache::PutBlock offset -> [%llu]", offset);
 
   cache_.insert({offset, block});
 
@@ -40,7 +40,7 @@ int BlockCache::PutBlock(long long offset, BlockInfo block) {
 }
 
 BlockInfo &BlockCache::GetBlock(long long offset) {
-  log_debug("BlockCache::GetBlock offset -> [%llu]", offset);
+  // log_debug("BlockCache::GetBlock offset -> [%llu]", offset);
 
   map<long long, BlockInfo>::iterator iter = cache_.find(offset);
 
@@ -49,6 +49,6 @@ BlockInfo &BlockCache::GetBlock(long long offset) {
     return tmp;
   }
 
-  log_debug("return cache_miss_");
+  // log_debug("return cache_miss_");
   return cache_miss_;
 }
