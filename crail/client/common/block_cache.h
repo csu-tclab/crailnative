@@ -25,6 +25,8 @@
 #define BLOCK_CACHE_H
 
 #include "crail/client/metadata/block_info.h"
+#include "crail/client/utils/log.h"
+
 #include <map>
 #include <unordered_map>
 
