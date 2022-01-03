@@ -21,7 +21,7 @@
  * limitations under the License.
  */
 
-#include "crail/client/narpc/narpc_staging.h"
+#include "crail/narpc/narpc_staging.h"
 
 #include <arpa/inet.h>
 #include <errno.h>
@@ -37,7 +37,7 @@
 #include <unistd.h>
 
 #include "crail/client/common/crail_constants.h"
-#include "crail/client/narpc/network_utils.h"
+#include "crail/narpc/network_utils.h"
 
 NarpcStaging::NarpcStaging() : bytes_(0), metadata_(kBufferSize * 2) {}
 

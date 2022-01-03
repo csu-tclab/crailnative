@@ -40,9 +40,9 @@ add_library (crail STATIC
 	client/utils/crail_hash.cc
 	client/utils/crail_networking.cc
 	client/ioutils/byte_buffer.cc
-	client/narpc/narpc_staging.cc
-	client/narpc/network_utils.cc
-	client/narpc/rpc_client.cc
+	narpc/narpc_staging.cc
+	narpc/network_utils.cc
+	narpc/rpc_client.cc
 	client/utils/log.cc
 	client/api/crail_client.cc
 )
@@ -91,11 +91,11 @@ install (FILES
 	client/ioutils/byte_buffer.h
 	DESTINATION /usr/local/include/crail/client/ioutils)
 install (FILES
-	client/narpc/narpc_staging.h
-	client/narpc/network_utils.h
-	client/narpc/rpc_client.h
-	client/narpc/rpc_message.h
-	DESTINATION /usr/local/include/crail/client/narpc)
+	narpc/narpc_staging.h
+	narpc/network_utils.h
+	narpc/rpc_client.h
+	narpc/rpc_message.h
+	DESTINATION /usr/local/include/crail/narpc)
 install (FILES
 	client/api/crail_client.h
 	DESTINATION /usr/local/include/crail/client/api)

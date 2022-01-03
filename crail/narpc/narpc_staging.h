@@ -33,7 +33,7 @@
 #include <vector>
 
 #include "crail/client/ioutils/byte_buffer.h"
-#include "crail/client/narpc/rpc_message.h"
+#include "crail/narpc/rpc_message.h"
 
 class NarpcStaging {
 public:

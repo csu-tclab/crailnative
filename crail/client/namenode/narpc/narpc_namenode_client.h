@@ -36,7 +36,7 @@
 #include "crail/client/namenode/namenode_client.h"
 #include "crail/client/namenode/remove_response.h"
 #include "crail/client/namenode/void_response.h"
-#include "crail/client/narpc/rpc_client.h"
+#include "crail/narpc/rpc_client.h"
 
 class NarpcNamenodeClient : public NamenodeClient {
 public:

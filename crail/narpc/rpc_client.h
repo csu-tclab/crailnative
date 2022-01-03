@@ -37,8 +37,8 @@
 #include <unistd.h>
 #include <unordered_map>
 
-#include "crail/client/narpc/narpc_staging.h"
-#include "crail/client/narpc/rpc_message.h"
+#include "crail/narpc/narpc_staging.h"
+#include "crail/narpc/rpc_message.h"
 
 using namespace std;
 

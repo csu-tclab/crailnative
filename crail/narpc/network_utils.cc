@@ -21,7 +21,7 @@
  * limitations under the License.
  */
 
-#include "crail/client/narpc/network_utils.h"
+#include "crail/narpc/network_utils.h"
 
 #include <sstream>
 
