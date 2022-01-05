@@ -1,6 +1,7 @@
 #include "crail/client/api/crail_client.h"
 #include "crail/client/utils/log.h"
 #include "crail/client/crail_file.h"
+#include "crail/client/crail_directory.h"
 
 using namespace std;
 
@@ -42,6 +43,9 @@ int CrailClient::Connect() {
         log_error("_crailStore->Initialize() failed, ret -> [%d]", ret);
     }
 
+    string path = "/gg";
+    CreateTable(path);
+
     // free server_list
     return ret;
 }
@@ -55,19 +59,7 @@ int CrailClient::Disconnect() {
 
 int CrailClient::Set(std::string key, const std::string &value) {
     int ret = 0;
-    bool enumerable = true;
-
-    // we need to handle duplicate key manually, WTF
-    auto lookup_ret = this->_crailStore->Lookup<CrailFile>(key).get();
-    if (lookup_ret.valid()) {
-        log_info("key [%s] found dup, will remove at first", key.c_str());
-        auto remove_ret = this->_crailStore->Remove(key, true);
-        if (remove_ret != 0) {
-            log_error("Remove() key [%s] failed!, so Set failed", key.c_str());
-            ret = -1;
-            return ret;
-        }
-    }
+    bool enumerable = false;
 
     // then create the file if previous step OK
     auto crailFile = this->_crailStore->Create<CrailFile>(key, 0, 0, enumerable).get();
@@ -127,6 +119,24 @@ int CrailClient::Get(std::string key, std::string &value) {
 
     // close stream
     inputstream->Close();
+
+    return ret;
+}
+
+int CrailClient::CreateTable(std::string dir){
+    int ret = 0;
+    
+    auto lookup_ret = this->_crailStore->Lookup<CrailDirectory>(dir).get();
+    if (!lookup_ret.valid()) {
+        auto crailFile = this->_crailStore->Create<CrailDirectory>(dir, 0, 0, false).get();
+        if (!crailFile.valid()) {
+            log_error("Create() dir [%s] failed!", dir.c_str());
+            ret = -1;
+            return ret;
+        }
+    }else{
+        log_info("dir [%s] already exist", dir.c_str());
+    }
 
     return ret;
 }
