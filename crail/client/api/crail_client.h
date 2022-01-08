@@ -21,7 +21,7 @@ public:
     int Disconnect();
     int Set(std::string key, const std::string &value);
     int Get(std::string key, std::string &value);
-    int CreateTable(std::string dir);
+    int InitCrailTable(void);
     
 private:
     // libcrail connect instance

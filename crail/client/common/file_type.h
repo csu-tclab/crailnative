@@ -24,6 +24,12 @@
 #ifndef FILE_TYPE_H
 #define FILE_TYPE_H
 
-enum class FileType { Undefined = -1, File = 5, Directory = 4 };
+enum class FileType {
+    Undefined = -1, 
+    File = 0, 
+    Directory = 1, 
+    Table = 4, 
+    KeyValue = 5
+};
 
 #endif /* FILE_TYPE_H */

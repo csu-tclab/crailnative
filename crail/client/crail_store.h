@@ -48,6 +48,8 @@ public:
   Future<T> Create(string &name, int storage_class, int location_class,
                    bool enumerable) {
     Filename filename(name);
+
+    // T::type will determine create type (eg. static const FileType type = FileType::Directory;)
     auto future =
         namenode_client_->Create(filename, static_cast<int>(T::type),
                                  storage_class, location_class, enumerable);

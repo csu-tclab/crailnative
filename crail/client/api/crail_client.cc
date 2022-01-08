@@ -1,7 +1,8 @@
 #include "crail/client/api/crail_client.h"
 #include "crail/client/utils/log.h"
 #include "crail/client/crail_file.h"
-#include "crail/client/crail_directory.h"
+#include "crail/client/crail_table.h"
+#include "crail/client/crail_keyvalue.h"
 
 using namespace std;
 
@@ -43,10 +44,6 @@ int CrailClient::Connect() {
         log_error("_crailStore->Initialize() failed, ret -> [%d]", ret);
     }
 
-    string path = "/gg";
-    CreateTable(path);
-
-    // free server_list
     return ret;
 }
 
@@ -61,16 +58,21 @@ int CrailClient::Set(std::string key, const std::string &value) {
     int ret = 0;
     bool enumerable = false;
 
+    // realKey
+    string realKey = "/gg/" + key;
+
     // then create the file if previous step OK
-    auto crailFile = this->_crailStore->Create<CrailFile>(key, 0, 0, enumerable).get();
-    if (!crailFile.valid()) {
+    CrailKeyValue keyValue = this->_crailStore->Create<CrailKeyValue>(realKey, 0, 0, enumerable).get();
+
+    if (!keyValue.valid()) {
         log_error("Create() key [%s] failed!, so Set failed", key.c_str());
+        log_error("realKey -> [%s]", realKey.c_str());
         ret = -1;
         return ret;
     }
 
     // save value content to a buffer
-    unique_ptr<CrailOutputstream> outputstream = crailFile.outputstream();
+    unique_ptr<CrailOutputstream> outputstream = keyValue.outputstream();
     shared_ptr<ByteBuffer> buf = make_shared<ByteBuffer>(value.length() + 1);
     buf->PutBytes(value.c_str(), value.length());
     buf->Flip();
@@ -98,17 +100,21 @@ int CrailClient::Set(std::string key, const std::string &value) {
 
 int CrailClient::Get(std::string key, std::string &value) {
     int ret = 0;
+
+    // realKey
+    string realKey = "/gg/" + key;
     
     // lookup file
-    auto crailFile = this->_crailStore->Lookup<CrailFile>(key).get();
-    if (!crailFile.valid()) {
+    CrailKeyValue keyValue = this->_crailStore->Lookup<CrailKeyValue>(realKey).get();
+    if (!keyValue.valid()) {
         log_error("Lookup() key [%s] failed!, so Get failed");
+        log_error("realKey -> [%s]", realKey.c_str());
         ret = -1;
         return ret;
     }
 
     // save stream to string
-    unique_ptr<CrailInputstream> inputstream = crailFile.inputstream();
+    unique_ptr<CrailInputstream> inputstream = keyValue.inputstream();
     shared_ptr<ByteBuffer> buf = make_shared<ByteBuffer>(kBufferSize);
 
     while (inputstream->Read(buf).get() > 0) {
@@ -123,19 +129,22 @@ int CrailClient::Get(std::string key, std::string &value) {
     return ret;
 }
 
-int CrailClient::CreateTable(std::string dir){
+// need to invoke before Get or Set, only need to invoke one time
+int CrailClient::InitCrailTable(void){
     int ret = 0;
-    
-    auto lookup_ret = this->_crailStore->Lookup<CrailDirectory>(dir).get();
-    if (!lookup_ret.valid()) {
-        auto crailFile = this->_crailStore->Create<CrailDirectory>(dir, 0, 0, false).get();
-        if (!crailFile.valid()) {
-            log_error("Create() dir [%s] failed!", dir.c_str());
-            ret = -1;
-            return ret;
+
+    string table_path = "/gg";
+
+    CrailTable tb = this->_crailStore->Lookup<CrailTable>(table_path).get();
+
+    if (!tb.valid()) {
+        CrailTable crailTable = this->_crailStore->Create<CrailTable>(table_path, 0, 0, false).get();
+        if (!crailTable.valid()) {
+            log_error("invoke CreateTable() to create table [%s] failed!", table_path.c_str());
+            return -1;
         }
     }else{
-        log_info("dir [%s] already exist", dir.c_str());
+        log_trace("table [%s] already exist", table_path.c_str());
     }
 
     return ret;

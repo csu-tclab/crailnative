@@ -5,6 +5,8 @@ add_library (crail STATIC
 	client/crail_node.cc
 	client/crail_file.cc
 	client/crail_directory.cc
+	client/crail_table.cc
+	client/crail_keyvalue.cc
 	client/crail_outputstream.cc
 	client/crail_inputstream.cc
 	client/directory_record.cc
@@ -56,6 +58,8 @@ install (FILES
 	client/crail_outputstream.h
 	client/crail_inputstream.h
 	client/directory_record.h
+	client/crail_table.h
+	client/crail_keyvalue.h
 	DESTINATION /usr/local/include/crail/client)
 install (FILES
 	client/common/file_type.h
